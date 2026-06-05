@@ -31,11 +31,14 @@ body{
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+const imagenDino = new Image();
+imagenDino.src = "dinosaurio.png";
+
 let dino = {
     x:50,
-    y:220,
-    width:40,
-    height:40,
+    y:210,
+    width:50,
+    height:50,
     velocidadY:0,
     saltando:false
 };
@@ -102,8 +105,8 @@ function actualizar(){
     dino.velocidadY += gravedad;
     dino.y += dino.velocidadY;
 
-    if(dino.y >= 220){
-        dino.y = 220;
+    if(dino.y >= 210){
+        dino.y = 210;
         dino.velocidadY = 0;
         dino.saltando = false;
     }
@@ -115,21 +118,17 @@ function actualizar(){
         puntos++;
     }
 
-    // Dinosaurio
-    ctx.fillStyle = "black";
-
-    ctx.fillRect(dino.x, dino.y + 10, 40, 20);
-    ctx.fillRect(dino.x + 25, dino.y, 15, 15);
-    ctx.fillRect(dino.x - 10, dino.y + 15, 10, 5);
-    ctx.fillRect(dino.x + 5, dino.y + 30, 5, 10);
-    ctx.fillRect(dino.x + 25, dino.y + 30, 5, 10);
-
-    ctx.fillStyle = "white";
-    ctx.fillRect(dino.x + 32, dino.y + 4, 2, 2);
+    // Dinosaurio con imagen
+    ctx.drawImage(
+        imagenDino,
+        dino.x,
+        dino.y,
+        dino.width,
+        dino.height
+    );
 
     // Cactus
     ctx.fillStyle = "green";
-
     ctx.fillRect(cactus.x + 10, cactus.y, 10, 40);
     ctx.fillRect(cactus.x, cactus.y + 10, 10, 5);
     ctx.fillRect(cactus.x + 20, cactus.y + 20, 10, 5);
@@ -150,7 +149,9 @@ function actualizar(){
     ctx.fillText("Puntos: " + puntos,20,30);
 }
 
-actualizar();
+imagenDino.onload = function(){
+    actualizar();
+};
 
 </script>
 
